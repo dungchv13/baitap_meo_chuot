@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Rat(name,weight,speed,status){
+        this.name = name;
+        this.weight = weight;
+        this.speed = speed;
+        this.status = status;
+        this.keu = function (){
+            alert("rat : chit,chit");
+        }
+        this.dead = function (){
+            this.status = 'dead';
+        }
+        this.setWeigh = function (){
+            this.weight = 0;
+        }
+    }
+    function Cat(name,weight,maxspeed){
+        this.name = name;
+        this.weight = weight;
+        this.rat = 0;
+        this.maxspeed = maxspeed;
+        this.keu = function (){
+            alert("cat : meo,meo");
+        }
+        this.catchRat = function (rat){
+
+                this.speed = 0;
+                if (this.maxspeed < rat.speed) {
+                    console.log('rat is to fast')
+                } else {
+                    rat.keu();
+                    while (this.speed <= this.maxspeed) {
+                        if (this.speed > rat.speed) {
+                            this.rat = 1;
+                            break;
+                        }
+                        this.speed++;
+                    }
+
+                }
+
+
+        }
+        this.eatRat = function (rat) {
+            if (this.rat < 1) {
+                alert('havent catch a mouse');
+            } else {
+                if (rat.status == 'dead') {
+                    console.log('rat is dead,cant eat');
+                } else {
+                    rat.dead();
+                    this.weight += rat.weight;
+                    rat.setWeigh();
+                    this.rat -= 1;
+                }
+            }
+        }
+
+    }
+    var tom = new Cat('Tom',10,25);
+    var jerry = new Rat('Jerry',0.5,20,'alive');
+    console.log(tom.weight)
+    tom.catchRat(jerry);
+    console.log(jerry.status)
+    tom.eatRat(jerry);
+    console.log(tom.weight);
+    console.log(jerry.status);
+
+</script>
+</body>
+</html>
